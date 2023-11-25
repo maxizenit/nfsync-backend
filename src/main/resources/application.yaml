@@ -8,6 +8,6 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
-jwt:
-  secret: B9F9E5AD1A843E3AF3733E470B321975A107F8669DC109CA03EB18ADFA17AF94
-  lifetime: 1h
+  docker:
+    compose:
+      enabled: false
