@@ -58,8 +58,4 @@ public class User {
   /** Контакты. */
   @OneToMany(mappedBy = "subscriber", fetch = FetchType.LAZY)
   private List<Contact> contacts;
-
-  /** Аватар. */
-  @OneToOne(mappedBy = "user")
-  private Avatar avatar;
 }

@@ -15,6 +15,7 @@ import net.nfsync.nfsyncbackend.entity.Interest;
 import net.nfsync.nfsyncbackend.entity.Selection;
 import net.nfsync.nfsyncbackend.entity.SocialLink;
 import net.nfsync.nfsyncbackend.entity.User;
+import net.nfsync.nfsyncbackend.repository.AvatarRepository;
 import net.nfsync.nfsyncbackend.service.AvatarService;
 import net.nfsync.nfsyncbackend.service.UserService;
 import net.nfsync.nfsyncbackend.util.DateUtils;
@@ -97,10 +98,13 @@ public class UserController {
     return new ResponseEntity<>(detailedSelections, HttpStatus.OK);
   }
 
+  private final AvatarRepository avatarRepository;
+
   @Operation(summary = "Получение аватара пользователя")
   @GetMapping(value = "/{id}/avatar")
   public ResponseEntity<byte[]> getAvatarByUserId(@PathVariable Integer id) {
-    byte[] image = userService.getUserById(id).getAvatar().getImage();
+    User user = userService.getUserById(id);
+    byte[] image = avatarRepository.findById(user.getId()).get().getImage();
     return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(image);
   }
 
